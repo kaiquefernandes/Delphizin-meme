@@ -1,4 +1,4 @@
-object Form1: TForm1
+object frm_cliente: Tfrm_cliente
   Left = 0
   Top = 0
   Caption = 'Cadastro de cliente'
@@ -13,7 +13,7 @@ object Form1: TForm1
   OldCreateOrder = False
   PixelsPerInch = 96
   TextHeight = 13
-  object frm_cad_clientes: TPageControl
+  object cad: TPageControl
     Left = 0
     Top = 0
     Width = 736
@@ -21,14 +21,8 @@ object Form1: TForm1
     ActivePage = txt_data
     Align = alClient
     TabOrder = 0
-    ExplicitLeft = 32
-    ExplicitTop = 64
-    ExplicitWidth = 289
-    ExplicitHeight = 193
     object txt_data: TTabSheet
       Caption = 'Cadastro'
-      ExplicitLeft = 8
-      ExplicitTop = 16
       object Label1: TLabel
         Left = 16
         Top = 24
@@ -39,9 +33,9 @@ object Form1: TForm1
       object Label2: TLabel
         Left = 16
         Top = 72
-        Width = 11
+        Width = 27
         Height = 13
-        Caption = 'ID'
+        Caption = 'Nome'
       end
       object Label3: TLabel
         Left = 16
@@ -63,13 +57,6 @@ object Form1: TForm1
         Width = 33
         Height = 13
         Caption = 'Cidade'
-      end
-      object Label6: TLabel
-        Left = 16
-        Top = 310
-        Width = 13
-        Height = 29
-        Caption = 'UF'
       end
       object Label7: TLabel
         Left = 176
@@ -127,152 +114,14 @@ object Form1: TForm1
         Height = 13
         Caption = 'Cep'
       end
-      object txt_id: TEdit
-        Left = 16
-        Top = 43
-        Width = 121
-        Height = 21
-        TabOrder = 0
-        Text = 'txt_id'
-      end
-      object Edit2: TEdit
-        Left = 16
-        Top = 91
-        Width = 121
-        Height = 21
-        TabOrder = 1
-        Text = 'Edit1'
-      end
-      object Edit3: TEdit
-        Left = 16
-        Top = 139
-        Width = 121
-        Height = 21
-        TabOrder = 2
-        Text = 'Edit1'
-      end
-      object txt_bairro: TEdit
-        Left = 16
-        Top = 235
-        Width = 121
-        Height = 21
-        TabOrder = 3
-        Text = 'Edit1'
-      end
-      object txt_cidade: TEdit
-        Left = 16
-        Top = 283
-        Width = 121
-        Height = 21
-        TabOrder = 4
-        Text = 'Edit1'
-      end
-      object Edit6: TEdit
-        Left = 16
-        Top = 331
-        Width = 121
-        Height = 21
-        TabOrder = 5
-        Text = 'Edit1'
-      end
-      object Edit8: TEdit
-        Left = 176
-        Top = 91
-        Width = 121
-        Height = 21
-        TabOrder = 6
-        Text = 'Edit1'
-      end
-      object txt_tel: TEdit
-        Left = 176
-        Top = 139
-        Width = 121
-        Height = 21
-        TabOrder = 7
-        Text = 'Edit1'
-      end
-      object txt_cel: TEdit
-        Left = 176
-        Top = 187
-        Width = 121
-        Height = 21
-        TabOrder = 8
-        Text = 'Edit1'
-      end
-      object Edit11: TEdit
-        Left = 176
-        Top = 235
-        Width = 121
-        Height = 21
-        TabOrder = 9
-        Text = 'Edit1'
-      end
-      object Edit12: TEdit
-        Left = 176
-        Top = 283
-        Width = 121
-        Height = 21
-        TabOrder = 10
-        Text = 'Edit1'
-      end
-      object cb_uf: TComboBox
-        Left = 177
-        Top = 43
-        Width = 120
-        Height = 21
-        TabOrder = 11
-        Text = 'cb_uf'
-        Items.Strings = (
-          ''
-          '    Acre (AC)'
-          '    Alagoas (AL)'
-          '    Amap'#225' (AP)'
-          '    Amazonas (AM)'
-          '    Bahia (BA)'
-          '    Cear'#225' (CE)'
-          '    Distrito Federal (DF)'
-          '    Esp'#237'rito Santo (ES)'
-          '    Goi'#225's (GO)'
-          '    Maranh'#227'o (MA)'
-          '    Mato Grosso (MT)'
-          '    Mato Grosso do Sul (MS)'
-          '    Minas Gerais (MG)'
-          '    Par'#225' (PA)'
-          ''
-          #9
-          ''
-          '    Para'#237'ba (PB)'
-          '    Paran'#225' (PR)'
-          '    Pernambuco (PE)'
-          '    Piau'#237' (PI)'
-          '    Rio de Janeiro (RJ)'
-          '    Rio Grande do Norte (RN)'
-          '    Rio Grande do Sul (RS)'
-          '    Rond'#244'nia (RO)'
-          '    Roraima (RR)'
-          '    Santa Catarina (SC)'
-          '    S'#227'o Paulo (SP)'
-          '    Sergipe (SE)'
-          '    Tocantins (TO)'
-          '')
-      end
-      object cb_situa: TComboBox
-        Left = 328
-        Top = 43
-        Width = 120
-        Height = 21
-        TabOrder = 12
-        Items.Strings = (
-          'Ativo'
-          'Inativo')
-      end
       object btn_inserir: TButton
-        Left = 592
+        Left = 106
         Top = 360
         Width = 75
         Height = 25
         Caption = 'Inserir'
-        TabOrder = 13
+        TabOrder = 0
+        OnClick = btn_inserirClick
       end
       object btn_deletar: TButton
         Left = 349
@@ -280,38 +129,181 @@ object Form1: TForm1
         Width = 75
         Height = 25
         Caption = 'Deletar'
-        TabOrder = 14
+        TabOrder = 1
+        OnClick = btn_deletarClick
       end
       object btn_salvar: TButton
-        Left = 430
+        Left = 268
         Top = 360
         Width = 75
         Height = 25
         Caption = 'Salvar'
-        TabOrder = 15
+        TabOrder = 2
+        OnClick = btn_salvarClick
       end
-      object Button3: TButton
+      object brn_cancel: TButton
+        Left = 430
+        Top = 360
+        Width = 75
+        Height = 25
+        Caption = 'Cancelar'
+        TabOrder = 3
+        OnClick = brn_cancelClick
+      end
+      object brn_edit: TButton
+        Left = 187
+        Top = 360
+        Width = 75
+        Height = 25
+        Caption = 'Editar'
+        TabOrder = 4
+        OnClick = brn_editClick
+      end
+      object btn_fechar: TButton
         Left = 511
         Top = 360
         Width = 75
         Height = 25
-        Caption = 'Inserir'
+        Caption = 'Fechar'
+        TabOrder = 5
+        OnClick = btn_fecharClick
+      end
+      object btn_localizar: TButton
+        Left = 592
+        Top = 360
+        Width = 75
+        Height = 25
+        Caption = 'Localizar'
+        TabOrder = 6
+      end
+      object DBEdit_ID: TDBEdit
+        Left = 16
+        Top = 45
+        Width = 121
+        Height = 21
+        DataField = 'cli_id'
+        DataSource = DataModule1.DataSource1
+        TabOrder = 7
+      end
+      object DBEdit_NOME: TDBEdit
+        Left = 16
+        Top = 91
+        Width = 121
+        Height = 21
+        DataField = 'cli_nome'
+        DataSource = DataModule1.DataSource1
+        TabOrder = 8
+      end
+      object DBEdit_ENDE: TDBEdit
+        Left = 16
+        Top = 139
+        Width = 121
+        Height = 21
+        DataField = 'cli_endereco'
+        DataSource = DataModule1.DataSource1
+        TabOrder = 9
+      end
+      object DBEdit_CEP: TDBEdit
+        Left = 16
+        Top = 189
+        Width = 121
+        Height = 21
+        DataField = 'cli_cep'
+        DataSource = DataModule1.DataSource1
+        TabOrder = 10
+      end
+      object DBEdit_BAIRRO: TDBEdit
+        Left = 16
+        Top = 235
+        Width = 121
+        Height = 21
+        DataField = 'cli_bairro'
+        DataSource = DataModule1.DataSource1
+        TabOrder = 11
+      end
+      object DBEdit_CIDADE: TDBEdit
+        Left = 16
+        Top = 283
+        Width = 121
+        Height = 21
+        DataField = 'cli_cidade'
+        DataSource = DataModule1.DataSource1
+        TabOrder = 12
+      end
+      object DBEdit_CPF: TDBEdit
+        Left = 176
+        Top = 91
+        Width = 121
+        Height = 21
+        DataField = 'cli_cpf'
+        DataSource = DataModule1.DataSource1
+        TabOrder = 13
+      end
+      object DBEdit_TEL: TDBEdit
+        Left = 176
+        Top = 142
+        Width = 121
+        Height = 21
+        DataField = 'cli_tel'
+        DataSource = DataModule1.DataSource1
+        TabOrder = 14
+      end
+      object DBEdit_CEL: TDBEdit
+        Left = 176
+        Top = 189
+        Width = 121
+        Height = 21
+        DataField = 'cli_cel'
+        DataSource = DataModule1.DataSource1
+        TabOrder = 15
+      end
+      object DBEdit_EMAIL: TDBEdit
+        Left = 176
+        Top = 235
+        Width = 121
+        Height = 21
+        DataField = 'cli_email'
+        DataSource = DataModule1.DataSource1
         TabOrder = 16
+      end
+      object DBEdit_DATA: TDBEdit
+        Left = 176
+        Top = 283
+        Width = 121
+        Height = 21
+        DataField = 'cli_data_nasc'
+        DataSource = DataModule1.DataSource1
+        TabOrder = 17
+      end
+      object DBComboBox1: TDBComboBox
+        Left = 176
+        Top = 45
+        Width = 121
+        Height = 21
+        DataField = 'cli_uf'
+        DataSource = DataModule1.DataSource1
+        Items.Strings = (
+          'SP'
+          'MS'
+          'MG')
+        TabOrder = 18
+      end
+      object DBComboBox_SIT: TDBComboBox
+        Left = 328
+        Top = 43
+        Width = 121
+        Height = 21
+        DataField = 'cli_situacao'
+        DataSource = DataModule1.DataSource1
+        Items.Strings = (
+          'Ativo'
+          'Inativo')
+        TabOrder = 19
       end
     end
     object tb_consulta: TTabSheet
       Caption = 'Consulta'
       ImageIndex = 1
-      ExplicitWidth = 281
-      ExplicitHeight = 165
     end
-  end
-  object txt_cep: TEdit
-    Left = 20
-    Top = 213
-    Width = 121
-    Height = 21
-    TabOrder = 1
-    Text = 'txt_cep'
   end
 end

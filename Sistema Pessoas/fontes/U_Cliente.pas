@@ -1,59 +1,134 @@
-unit U_Cliente;
+unit U_cliente;
 
 interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls, Vcl.Mask, Data.db,
+  Vcl.DBCtrls;
 
 type
-  TForm1 = class(TForm)
-    frm_cad_clientes: TPageControl;
+  Tfrm_cliente = class(TForm)
     txt_data: TTabSheet;
     tb_consulta: TTabSheet;
     Label1: TLabel;
-    txt_id: TEdit;
     Label2: TLabel;
-    Edit2: TEdit;
-    Edit3: TEdit;
     Label3: TLabel;
     Label4: TLabel;
-    txt_bairro: TEdit;
     Label5: TLabel;
-    txt_cidade: TEdit;
-    Label6: TLabel;
-    Edit6: TEdit;
     Label7: TLabel;
     Label8: TLabel;
-    Edit8: TEdit;
     Label9: TLabel;
-    txt_tel: TEdit;
     Label10: TLabel;
-    txt_cel: TEdit;
     Label11: TLabel;
-    Edit11: TEdit;
     Label12: TLabel;
-    Edit12: TEdit;
     Label13: TLabel;
-    cb_uf: TComboBox;
-    cb_situa: TComboBox;
-    txt_cep: TEdit;
     Label14: TLabel;
     btn_inserir: TButton;
     btn_deletar: TButton;
     btn_salvar: TButton;
-    Button3: TButton;
+    brn_cancel: TButton;
+    brn_edit: TButton;
+    btn_fechar: TButton;
+    btn_localizar: TButton;
+    cad: TPageControl;
+    DBEdit_ID: TDBEdit;
+    DBEdit_NOME: TDBEdit;
+    DBEdit_ENDE: TDBEdit;
+    DBEdit_CEP: TDBEdit;
+    DBEdit_BAIRRO: TDBEdit;
+    DBEdit_CIDADE: TDBEdit;
+    DBEdit_CPF: TDBEdit;
+    DBEdit_TEL: TDBEdit;
+    DBEdit_CEL: TDBEdit;
+    DBEdit_EMAIL: TDBEdit;
+    DBEdit_DATA: TDBEdit;
+    DBComboBox1: TDBComboBox;
+    DBComboBox_SIT: TDBComboBox;
+    procedure btn_inserirClick(Sender: TObject);
+    procedure brn_editClick(Sender: TObject);
+    procedure btn_salvarClick(Sender: TObject);
+    procedure btn_deletarClick(Sender: TObject);
+    procedure brn_cancelClick(Sender: TObject);
+    procedure btn_fecharClick(Sender: TObject);
   private
-    { Private declarations }
+    procedure congBotao;
   public
     { Public declarations }
   end;
 
 var
-  Form1: TForm1;
+  frm_cliente: Tfrm_cliente;
 
 implementation
 
 {$R *.dfm}
+
+uses Udm;
+
+procedure Tfrm_cliente.brn_cancelClick(Sender: TObject);
+begin
+    DataModule1.FDTable1.Cancel;
+    congBotao;
+end;
+
+procedure Tfrm_cliente.brn_editClick(Sender: TObject);
+begin
+    DataModule1.FDTable1.Edit;
+    congBotao;
+end;
+
+procedure Tfrm_cliente.btn_deletarClick(Sender: TObject);
+begin
+    case Application.MessageBox('Deseja excuir o cliente', 'Excluir cliente', MB_YESNO) of
+       IDYES:
+        begin
+          DataModule1.FDTable1.Delete;
+          ShowMessage('Cliente excluido');
+        end;
+       IDNO:
+        BEGIN
+          EXIT;
+        END;
+    end;
+end;
+
+procedure Tfrm_cliente.btn_fecharClick(Sender: TObject);
+begin
+  if DataModule1.FDTable1.State in [dsinsert, dsedit] then
+    begin
+      ShowMessage('salve ou cancele');
+      exit;
+    end
+    else
+    begin
+      close;
+    end;
+end;
+
+procedure Tfrm_cliente.btn_inserirClick(Sender: TObject);
+begin
+  DataModule1.FDTable1.Active := true;
+  DataModule1.FDTable1.Insert;
+  congBotao;
+  DBEdit_NOME.SetFocus;
+end;
+
+procedure Tfrm_cliente.btn_salvarClick(Sender: TObject);
+begin
+    DataModule1.FDTable1.Post;
+    ShowMessage('salvo com sucesso!');
+    congBotao;
+end;
+
+procedure Tfrm_cliente.congBotao;
+begin
+  btn_inserir.Enabled := DataModule1.FDTable1.State[dsbrowse];
+  btn_deletar.Enabled := DataModule1.FDTable1.State[dsbrowse];
+  brn_edit.Enabled := DataModule1.FDTable1.State[dsbrowse];
+  btn_salvar.Enabled := DataModule1.FDTable1.State[dsedit, dsinsert];
+  btn_fechar.Enabled := DataModule1.FDTable1.State[dsedit, dsinsert];
+
+end;
 
 end.

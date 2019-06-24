@@ -33,8 +33,6 @@ object frm_principal: Tfrm_principal
         Text = 'Hora'
         Width = 50
       end>
-    ExplicitLeft = 88
-    ExplicitTop = 292
   end
   object pnl_topo: TPanel
     Left = 0
@@ -43,7 +41,6 @@ object frm_principal: Tfrm_principal
     Height = 41
     Align = alTop
     TabOrder = 1
-    ExplicitWidth = 185
   end
   object MainMenu1: TMainMenu
     Left = 32
@@ -61,6 +58,7 @@ object frm_principal: Tfrm_principal
       Caption = 'cadastro'
       object clientes1: TMenuItem
         Caption = 'clientes'
+        OnClick = clientes1Click
       end
     end
     object Sair1: TMenuItem

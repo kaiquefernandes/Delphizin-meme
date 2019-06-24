@@ -1,0 +1,97 @@
+unit U_cliente;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls, Vcl.Mask, Data.db,
+  Vcl.DBCtrls;
+
+type
+  Tfrm_cliente = class(TForm)
+    txt_data: TTabSheet;
+    tb_consulta: TTabSheet;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    Label9: TLabel;
+    Label10: TLabel;
+    Label11: TLabel;
+    Label12: TLabel;
+    Label13: TLabel;
+    Label14: TLabel;
+    btn_inserir: TButton;
+    btn_deletar: TButton;
+    btn_salvar: TButton;
+    brn_cancel: TButton;
+    brn_edit: TButton;
+    btn_fechar: TButton;
+    btn_localizar: TButton;
+    cad: TPageControl;
+    DBEdit_ID: TDBEdit;
+    DBEdit_NOME: TDBEdit;
+    DBEdit_ENDE: TDBEdit;
+    DBEdit_CEP: TDBEdit;
+    DBEdit_BAIRRO: TDBEdit;
+    DBEdit_CIDADE: TDBEdit;
+    DBEdit_CPF: TDBEdit;
+    DBEdit_TEL: TDBEdit;
+    DBEdit_CEL: TDBEdit;
+    DBEdit_EMAIL: TDBEdit;
+    DBEdit_DATA: TDBEdit;
+    DBComboBox1: TDBComboBox;
+    DBComboBox_SIT: TDBComboBox;
+    procedure btn_inserirClick(Sender: TObject);
+    procedure brn_editClick(Sender: TObject);
+    procedure btn_salvarClick(Sender: TObject);
+  private
+    procedure congBotao;
+  public
+    { Public declarations }
+  end;
+
+var
+  frm_cliente: Tfrm_cliente;
+
+implementation
+
+{$R *.dfm}
+
+uses Udm;
+
+procedure Tfrm_cliente.brn_editClick(Sender: TObject);
+begin
+    DataModule1.FDTable1.Edit;
+    congBotao;
+end;
+
+procedure Tfrm_cliente.btn_inserirClick(Sender: TObject);
+begin
+  DataModule1.FDTable1.Active := true;
+  DataModule1.FDTable1.Insert;
+  congBotao;
+  DBEdit_NOME.SetFocus;
+end;
+
+procedure Tfrm_cliente.btn_salvarClick(Sender: TObject);
+begin
+    DataModule1.FDTable1.Post;
+    ShowMessage('salvo com sucesso!');
+    congBotao;
+end;
+
+procedure Tfrm_cliente.congBotao;
+begin
+  btn_inserir.Enabled := DataModule1.FDTable1.State[dsbrowse];
+  btn_deletar.Enabled := DataModule1.FDTable1.State[dsbrowse];
+  brn_edit.Enabled := DataModule1.FDTable1.State[dsbrowse];
+  btn_salvar.Enabled := DataModule1.FDTable1.State[dsedit, dsinsert];
+  btn_fechar.Enabled := DataModule1.FDTable1.State[dsedit, dsinsert];
+
+end;
+
+end.

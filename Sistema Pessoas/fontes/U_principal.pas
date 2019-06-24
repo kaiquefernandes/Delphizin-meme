@@ -19,6 +19,7 @@ type
     pnl_topo: TPanel;
     Timer1: TTimer;
     procedure Timer1Timer(Sender: TObject);
+    procedure clientes1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -31,6 +32,13 @@ var
 implementation
 
 {$R *.dfm}
+
+uses U_cliente;
+
+procedure Tfrm_principal.clientes1Click(Sender: TObject);
+begin
+  frm_cliente.ShowModal;
+end;
 
 procedure Tfrm_principal.Timer1Timer(Sender: TObject);
 begin
