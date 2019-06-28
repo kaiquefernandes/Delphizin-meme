@@ -11,6 +11,7 @@ object frm_cliente: Tfrm_cliente
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object cad: TPageControl
@@ -18,7 +19,7 @@ object frm_cliente: Tfrm_cliente
     Top = 0
     Width = 736
     Height = 440
-    ActivePage = txt_data
+    ActivePage = tb_consulta
     Align = alClient
     TabOrder = 0
     object txt_data: TTabSheet
@@ -175,6 +176,7 @@ object frm_cliente: Tfrm_cliente
         Height = 25
         Caption = 'Localizar'
         TabOrder = 6
+        OnClick = btn_localizarClick
       end
       object DBEdit_ID: TDBEdit
         Left = 16
@@ -304,6 +306,29 @@ object frm_cliente: Tfrm_cliente
     object tb_consulta: TTabSheet
       Caption = 'Consulta'
       ImageIndex = 1
+      object btn_voltar: TButton
+        Left = 624
+        Top = 360
+        Width = 75
+        Height = 25
+        Caption = 'Voltar'
+        TabOrder = 0
+        OnClick = btn_voltarClick
+      end
+      object DBGrid1: TDBGrid
+        Left = 0
+        Top = 0
+        Width = 728
+        Height = 217
+        Align = alTop
+        DataSource = DataModule1.DataSource1
+        TabOrder = 1
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'Tahoma'
+        TitleFont.Style = []
+      end
     end
   end
 end

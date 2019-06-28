@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls, Vcl.Mask, Data.db,
-  Vcl.DBCtrls;
+  Vcl.DBCtrls, Vcl.Grids, Vcl.DBGrids;
 
 type
   Tfrm_cliente = class(TForm)
@@ -45,12 +45,17 @@ type
     DBEdit_DATA: TDBEdit;
     DBComboBox1: TDBComboBox;
     DBComboBox_SIT: TDBComboBox;
+    btn_voltar: TButton;
+    DBGrid1: TDBGrid;
     procedure btn_inserirClick(Sender: TObject);
     procedure brn_editClick(Sender: TObject);
     procedure btn_salvarClick(Sender: TObject);
     procedure btn_deletarClick(Sender: TObject);
     procedure brn_cancelClick(Sender: TObject);
     procedure btn_fecharClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure btn_localizarClick(Sender: TObject);
+    procedure btn_voltarClick(Sender: TObject);
   private
     procedure congBotao;
   public
@@ -114,6 +119,13 @@ begin
   DBEdit_NOME.SetFocus;
 end;
 
+procedure Tfrm_cliente.btn_localizarClick(Sender: TObject);
+begin
+    cad.TabIndex := 1;
+    tb_consulta.TabVisible := true;
+    txt_data.TabVisible := false;
+end;
+
 procedure Tfrm_cliente.btn_salvarClick(Sender: TObject);
 begin
     DataModule1.FDTable1.Post;
@@ -121,13 +133,30 @@ begin
     congBotao;
 end;
 
+procedure Tfrm_cliente.btn_voltarClick(Sender: TObject);
+begin
+  cad.TabIndex := 0;
+  tb_consulta.TabVisible := false;
+  txt_data.TabVisible := true;
+end;
+
 procedure Tfrm_cliente.congBotao;
 begin
-  btn_inserir.Enabled := DataModule1.FDTable1.State[dsbrowse];
-  btn_deletar.Enabled := DataModule1.FDTable1.State[dsbrowse];
-  brn_edit.Enabled := DataModule1.FDTable1.State[dsbrowse];
-  btn_salvar.Enabled := DataModule1.FDTable1.State[dsedit, dsinsert];
-  btn_fechar.Enabled := DataModule1.FDTable1.State[dsedit, dsinsert];
+  btn_inserir.Enabled := DataModule1.FDTable1.State in [dsbrowse];
+  btn_deletar.Enabled := DataModule1.FDTable1.State in  [dsbrowse];
+  brn_edit.Enabled := DataModule1.FDTable1.State in [dsbrowse];
+  btn_salvar.Enabled := DataModule1.FDTable1.State in [dsedit, dsinsert];
+  btn_fechar.Enabled := DataModule1.FDTable1.State in [dsedit, dsinsert];
+
+end;
+
+procedure Tfrm_cliente.FormCreate(Sender: TObject);
+begin
+    cad.TabIndex := 0;
+    txt_data.TabVisible := false;
+
+    btn_salvar.Enabled := FALSE;
+    btn_fechar.Enabled := FALSE;
 
 end;
 
